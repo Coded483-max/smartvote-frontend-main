@@ -1,0 +1,122 @@
+.navlist {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  width: 25rem;
+  margin-left: -50px;
+  padding-top: 3rem;
+}
+
+.navlist a {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1.2rem 3.4rem;
+  box-sizing: border-box;
+}
+
+.navlist a:link,
+.navlist a:visited {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
+
+  color: var(--color-brand-900);
+  font-size: 1.6rem;
+  font-weight: 500;
+  /* padding: 1.2rem 2.4rem; */
+  transition: all 0.3s;
+}
+
+.navlist a:hover,
+.navlist a:active,
+.navlist a.active:link,
+.navlist a.active:visited {
+  color: white;
+  background-color: var(--color-brand-900);
+  border-radius: 50px; /* Ensure proper rounding */
+}
+
+.navlist a svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--color-grey-400);
+  transition: all 0.3s;
+}
+
+.navlist a:hover svg,
+.navlist a:active svg,
+.navlist a.active:link svg,
+.navlist a.active:visited svg {
+  color: white;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #354c83; */
+
+  height: fit-content;
+}
+.user a {
+  color: var(--color-brand-900);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.to-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.to-profile a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.to-profile svg {
+  color: var(--color-brand-900);
+}
+
+.user p {
+  font-size: 13px;
+  color: var(--color-brand-900);
+}
+.user .user-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.user .user-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--color-brand-200);
+}
+.logout-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20rem;
+}
+
+.logout-btn .primary-button {
+  background-color: transparent;
+  color: var(--color-brand-900);
+}
+.logout-btn .primary-button:hover {
+  background-color: var(--color-brand-900);
+  color: var(--color-brand-50);
+  transition: ease-in-out 0.5s;
+}

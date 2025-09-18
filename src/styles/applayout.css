@@ -1,0 +1,33 @@
+.styledlayout {
+  display: grid;
+  grid-template-columns: 26rem 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+main {
+  /* background-color: rgb(240, 110, 110); */
+  padding: 0 1rem 10rem 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.container {
+  /* width: 100%; */
+  max-width: 200rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  /* background-color: rgb(165, 195, 221); */
+  /* height: 100vh; */
+  /* padding: 1.5rem; */
+}
+
+/*Media Queries*/
+@media (max-width: 768px) {
+  .styledlayout {
+    display: block;
+  }
+}

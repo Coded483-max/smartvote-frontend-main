@@ -1,0 +1,17 @@
+aside {
+  padding: 4.2rem 3.4rem;
+  border-right: 1px solid grey;
+  background: #f9f8fc;
+
+  grid-row: 1/-1;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+/*Media Queries*/
+@media (max-width: 768px) {
+  aside {
+    display: none;
+  }
+}
