@@ -201,13 +201,7 @@ const Dashboard = () => {
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary" className="bg-green-100 text-green-700">
               <CheckCircle className="w-3 h-3 mr-1" />
-              {activeElections.length}{" "}
-              {activeElections.length > 1
-                ? "Active Elections"
-                : "Active Election"}
-            </Badge>
-            <Badge variant="outline">
-              <Clock className="w-3 h-3 mr-1" />2 Ending Soon
+              {activeElections.length} Active Elections
             </Badge>
           </div>
         </div>
@@ -221,115 +215,76 @@ const Dashboard = () => {
             <Button
               variant="outline"
               onClick={handleViewElections}
-              className="flex items-center gap-2 w-full sm:w-auto"
+              className="flex items-center gap-2 w-full sm:w-auto bg-transparent"
             >
               <VoteIcon className="w-4 h-4" /> View All Elections
             </Button>
           </div>
 
-          {electionsLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1, 2, 3].map((i) => (
-                <Card key={i} className="animate-pulse w-full">
-                  <CardContent className="p-6">
-                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded mb-4"></div>
-                    <div className="h-8 bg-gray-200 rounded"></div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : activeElections.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {activeElections.slice(0, 3).map((election) => (
-                <Card
-                  key={election.id}
-                  className="hover:shadow-lg transition-all duration-300 w-full"
-                >
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                      <CardTitle className="text-lg">
-                        {election.title}
-                      </CardTitle>
-                      <Badge
-                        variant={
-                          election.status === "voting" ? "default" : "secondary"
-                        }
-                        className={
-                          election.status === "voting"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-yellow-100 text-yellow-800 mt-2 sm:mt-0"
-                        }
-                      >
-                        {election.status}
-                      </Badge>
-                    </div>
-                    <CardDescription>{election.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Positions:</span>
-                      <span className="font-medium">
-                        {election.positionCount || 0}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Start Date:</span>
-                      <span className="font-medium text-green-600">
-                        {formatDateTime(election.startDate)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">End Date:</span>
-                      <span className="font-medium text-red-600">
-                        {formatDateTime(election.endDate)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Eligible Voters:</span>
-                      <span className="font-medium">
-                        {election.eligibleVoters || "All Students"}
-                      </span>
-                    </div>
-                    {election.status === "voting" ? (
-                      <Button
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                        onClick={() => handleVoteClick(election.id)}
-                      >
-                        <VoteIcon className="w-4 h-4 mr-2" /> Vote Now
-                      </Button>
-                    ) : (
-                      <Button variant="outline" className="w-full" disabled>
-                        <Clock className="w-4 h-4 mr-2" />
-                        {election.status === "candidate_registration"
-                          ? "Voting Not Started"
-                          : election.status === "campaign"
-                          ? "Campaigning"
-                          : "Voting Ended"}
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <Card className="w-full">
-              <CardContent className="p-8 text-center">
-                <VoteIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  No Active Elections
-                </h3>
-                <p className="text-gray-600">
-                  Check back later for upcoming elections.
-                </p>
-              </CardContent>
-            </Card>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {activeElections.map((election) => (
+              <Card
+                key={election.id}
+                className="hover:shadow-lg transition-all duration-300 w-full"
+              >
+                <CardHeader>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                    <CardTitle className="text-lg">{election.title}</CardTitle>
+                    <Badge
+                      variant={
+                        election.status === "voting" ? "default" : "secondary"
+                      }
+                      className={
+                        election.status === "voting"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800 mt-2 sm:mt-0"
+                      }
+                    >
+                      {election.status}
+                    </Badge>
+                  </div>
+                  <CardDescription>{election.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Positions:</span>
+                    <span className="font-medium">
+                      {election.positionCount}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Eligible Voters:</span>
+                    <span className="font-medium">
+                      {election.eligibleVoters}
+                    </span>
+                  </div>
+                  {election.status === "voting" ? (
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                      onClick={() => handleVoteClick(election.id)}
+                    >
+                      <VoteIcon className="w-4 h-4 mr-2" /> Vote Now
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      className="w-full bg-transparent"
+                      disabled
+                    >
+                      <Clock className="w-4 h-4 mr-2" />
+                      {election.status === "campaign"
+                        ? "Campaigning"
+                        : "Voting Ended"}
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {/* Active Elections */}
           <Card className="hover:shadow-lg w-full">
             <CardContent className="p-6 flex justify-between items-center">
               <div>
@@ -349,7 +304,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Total Votes Cast */}
           <Card className="hover:shadow-lg w-full">
             <CardContent className="p-6 flex justify-between items-center">
               <div>
@@ -367,16 +321,13 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Registered Voters */}
           <Card className="hover:shadow-lg w-full">
             <CardContent className="p-6 flex justify-between items-center">
               <div>
                 <p className="text-sm font-medium text-gray-600">
                   Registered Voters
                 </p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {turnout?.totalEligible ?? 0}
-                </p>
+                <p className="text-3xl font-bold text-gray-900">2,156</p>
                 <p className="text-sm text-blue-600 flex items-center mt-1">
                   <Users className="w-3 h-3 mr-1" /> 89% participation
                 </p>
@@ -387,7 +338,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Elections Won */}
           <Card className="hover:shadow-lg w-full">
             <CardContent className="p-6 flex justify-between items-center">
               <div>
@@ -407,253 +357,43 @@ const Dashboard = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Left Column */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Voting Results */}
           <div className="lg:col-span-2 space-y-6 w-full">
-            {/* Active Election Card */}
-            <Card className="overflow-hidden w-full">
-              <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                  <div>
-                    <CardTitle className="text-xl">
-                      🏛️ President Student Council
-                    </CardTitle>
-                    <CardDescription className="text-blue-100">
-                      Active Election • Ends in 2 days 14 hours
-                    </CardDescription>
-                  </div>
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/20 text-white mt-2 sm:mt-0"
-                  >
-                    Live
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-semibold">Current Results</h4>
-                    <Button variant="outline" size="sm">
-                      <Eye className="w-4 h-4 mr-2" />
-                      View Details
-                    </Button>
-                  </div>
-                  <div className="space-y-3">
-                    {votingData.map((candidate, index) => (
-                      <div key={index} className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium">
-                            {candidate.candidate}
-                          </span>
-                          <span className="text-sm text-gray-600">
-                            {candidate.percentage}%
-                          </span>
-                        </div>
-                        <Progress
-                          value={candidate.percentage}
-                          className="h-2"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col items-center justify-center space-y-4">
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-gray-900">1,000</p>
-                    <p className="text-sm text-gray-600">Total Votes</p>
-                  </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                    Vote Now
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Analytics Tabs */}
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <BarChart3 className="w-5 h-5 mr-2" />
-                  Voting Analytics
+                  Voting Results
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Tabs value={activeTab} onValueChange={setActiveTab}>
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="trends">Trends</TabsTrigger>
-                    <TabsTrigger value="breakdown">Breakdown</TabsTrigger>
-                  </TabsList>
-
-                  {/* Overview */}
-                  <TabsContent value="overview" className="mt-6">
-                    <div className="h-80 w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={votingData}>
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="candidate" />
-                          <YAxis />
-                          <Tooltip />
-                          <Bar
-                            dataKey="votes"
-                            fill="#3b82f6"
-                            radius={[4, 4, 0, 0]}
-                          />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </TabsContent>
-
-                  {/* Trends */}
-                  <TabsContent value="trends" className="mt-6">
-                    <div className="h-80 w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={weeklyVotingTrend}>
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="day" />
-                          <YAxis />
-                          <Tooltip />
-                          <Line
-                            type="monotone"
-                            dataKey="votes"
-                            stroke="#8b5cf6"
-                            strokeWidth={3}
-                            dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 4 }}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </TabsContent>
-
-                  {/* Breakdown */}
-                  <TabsContent value="breakdown" className="mt-6">
-                    <div className="h-80 w-full flex items-center justify-center">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={votingData}
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={100}
-                            fill="#8884d8"
-                            dataKey="votes"
-                            label={({ candidate, percentage }) =>
-                              `${candidate}: ${percentage}%`
-                            }
-                          >
-                            {votingData.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                <div className="h-80 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={votingData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="candidate" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar
+                        dataKey="votes"
+                        fill="#3b82f6"
+                        radius={[4, 4, 0, 0]}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Right Column */}
+          {/* Right Column - Recent Activity */}
           <div className="space-y-6 w-full">
-            {/* Calendar */}
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <CalendarIcon className="w-5 h-5 mr-2" />
-                  Election Calendar
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border-0 w-full"
-                />
-              </CardContent>
-            </Card>
-
-            {/* Upcoming Elections */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2" />
-                  Upcoming Elections
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {upcomingElections.map((election) => (
-                  <div
-                    key={election.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg w-full"
-                  >
-                    <div>
-                      <p className="font-medium text-sm">{election.title}</p>
-                      <p className="text-xs text-gray-600">{election.date}</p>
-                      <p className="text-xs text-gray-500">
-                        {election.participants} participants
-                      </p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full">
-                  View All Elections
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Recent Activity */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Activity className="w-5 h-5 mr-2" />
-                  Recent Activity
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {recentActivities.map((activity) => (
-                  <div
-                    key={activity.id}
-                    className="flex items-start space-x-3 w-full"
-                  >
-                    <div className="flex-shrink-0 mt-1">
-                      {activity.status === "completed" && (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      )}
-                      {activity.status === "new" && (
-                        <AlertCircle className="w-4 h-4 text-blue-500" />
-                      )}
-                      {activity.status === "info" && (
-                        <Activity className="w-4 h-4 text-gray-500" />
-                      )}
-                      {activity.status === "warning" && (
-                        <Clock className="w-4 h-4 text-yellow-500" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
-                        {activity.action}
-                      </p>
-                      <p className="text-xs text-gray-500">{activity.time}</p>
-                    </div>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full">
-                  View All Activity
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Quick Stats */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <PieChartIcon className="w-5 h-5 mr-2" />
-                  Voting Process
+                  <Users className="w-5 h-5 mr-2" />
+                  Voter Turnout
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -684,7 +424,7 @@ const Dashboard = () => {
                       75%
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600">Voter Turnout</p>
+                  <p className="text-sm text-gray-600">Current Turnout</p>
                 </div>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">

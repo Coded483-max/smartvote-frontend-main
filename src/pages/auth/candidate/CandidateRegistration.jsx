@@ -335,7 +335,7 @@ const CandidateRegistration = () => {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-semibold text-blue-600 mb-2">
-            Candidate Registration
+            Candididacy Application
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Register to run for student government positions and make your voice
@@ -1017,10 +1017,10 @@ const CandidateRegistration = () => {
                 {registrationLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Submitting Registration...
+                    Submitting Application...
                   </>
                 ) : (
-                  "Submit Candidate Registration"
+                  "Submit Application"
                 )}
               </Button>
             </CardContent>
